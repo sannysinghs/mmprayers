@@ -36,7 +36,8 @@
                 android:id="@+id/switch9"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                app:prayerAlarmIcon='@{vm.ishaPrayer.alarmOn}'
+                android:onClick='@{() -> vm.toggleAlarmOn(vm.ishaPrayer)}'
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView19" />
 
@@ -45,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.prayers.isha}"
+                android:text='@{vm.ishaPrayer.time}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView19" />
@@ -76,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.prayers.asr}"
+                android:text='@{vm.asrPrayer.time}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
@@ -94,7 +95,8 @@
                 android:id="@+id/switch5"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                app:prayerAlarmIcon='@{vm.asrPrayer.alarmOn}'
+                android:onClick='@{() -> vm.toggleAlarmOn(vm.asrPrayer)}'
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView11" />
 
@@ -116,7 +118,8 @@
                 android:id="@+id/switch4"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                app:prayerAlarmIcon='@{vm.dhuhrPrayer.alarmOn}'
+                android:onClick='@{() -> vm.toggleAlarmOn(vm.dhuhrPrayer)}'
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView9" />
 
@@ -125,7 +128,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.prayers.dhuhr}"
+                android:text='@{vm.dhuhrPrayer.time}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" />
@@ -155,7 +158,8 @@
                 android:id="@+id/switch3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                app:prayerAlarmIcon='@{vm.fajirPrayer.alarmOn}'
+                android:onClick='@{() -> vm.toggleAlarmOn(vm.fajirPrayer)}'
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView7" />
 
@@ -173,7 +177,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.prayers.fajir}"
+                android:text='@{vm.asrPrayer.time}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -195,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{vm.prayers.imsak}"
+                android:text='@{vm.imsakPrayer.time}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView5" />
@@ -204,7 +208,8 @@
                 android:id="@+id/switch2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                app:prayerAlarmIcon='@{vm.imsakPrayer.alarmOn}'
+                android:onClick='@{() -> vm.toggleAlarmOn(vm.imsakPrayer)}'
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -279,7 +284,8 @@
                 android:id="@+id/switch7"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                app:prayerAlarmIcon='@{vm.maghribPrayer.alarmOn}'
+                android:onClick='@{() -> vm.toggleAlarmOn(vm.maghribPrayer)}'
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView15" />
 
@@ -287,8 +293,8 @@
                 android:id="@+id/textView16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text='@{vm.maghribPrayer.time}'
                 android:layout_marginTop="8dp"
-                android:text="@{vm.prayers.maghrib}"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
                 app:layout_constraintTop_toBottomOf="@+id/textView15" />

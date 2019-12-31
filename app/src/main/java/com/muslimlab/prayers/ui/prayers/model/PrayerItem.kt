@@ -1,18 +1,20 @@
 package com.muslimlab.prayers.ui.prayers.model
 
-data class PrayerItem(val name: PrayerName, val time: String, val isAlarmOn: Boolean)
+data class PrayerItem(
+    val name: PrayerName, val time: String, val isAlarmOn: Boolean, val timeInMills: Long)
 
 enum class PrayerName {
-    IMSAK,
-    FAJR,
-    SUNRISE,
-    DHUHR,
-    ASR,
-    MAGHRIB,
-    ISHA
+    imsak,
+    fajr,
+    sunrise,
+    duhur,
+    asr,
+    maghrib,
+    isha
 }
-/*
 
+
+/*
 
 "Asr": "15:24 (+0630)",
 "Sunset": "18:19 (+0630)",

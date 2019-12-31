@@ -4,7 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class PrayerResult(
     @SerializedName("data") val data: PrayersData
-)
+) {
+    companion object {
+        val EMPTY = PrayerResult(
+            PrayersData(Prayers("", "", "", "", "", "", "", ""),
+                PrayersDate(0, ""))
+        )
+    }
+}
 
 data class PrayersData(
     val timings: Prayers,
@@ -13,14 +20,8 @@ data class PrayersData(
 
 data class PrayersDate(
     @SerializedName("timestamp") val timestamp: Long,
-    @SerializedName("readable") val readable: String,
-    @SerializedName("gregorian") val gregorian: Gregorian
+    @SerializedName("readable") val readable: String
 
-)
-
-data class Gregorian(
-    @SerializedName("date") val date: String,
-    @SerializedName("format") val format: String
 )
 
 data class Prayers(
