@@ -14,6 +14,7 @@ interface PrayersApi {
     @GET("/timingsByCity")
     fun todayPrayers(
         @Query("city") city: String,
-        @Query("country") country: String
+        @Query("country") country: String,
+        @Query("method") method: Int
     ): Single<PrayerResult>
 }

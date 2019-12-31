@@ -36,7 +36,8 @@
                 android:id="@+id/switch9"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                android:onClick='@{() -> vm.toggleAlarm("isha")}'
+                app:prayerAlarmOn="@{vm.ishaAalarm.booleanValue()}"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView19" />
 
@@ -94,7 +95,7 @@
                 android:id="@+id/switch5"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                android:src="@drawable/ic_sound_off"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView11" />
 
@@ -116,7 +117,7 @@
                 android:id="@+id/switch4"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                android:src="@drawable/ic_sound_off"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView9" />
 
@@ -155,7 +156,7 @@
                 android:id="@+id/switch3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                android:src="@drawable/ic_sound_off"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView7" />
 
@@ -204,7 +205,8 @@
                 android:id="@+id/switch2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+
+                android:src="@drawable/ic_sound_off"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView5" />
 
@@ -279,7 +281,7 @@
                 android:id="@+id/switch7"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_song_off"
+                android:src="@drawable/ic_sound_off"
                 app:layout_constraintEnd_toStartOf="@+id/guideline3"
                 app:layout_constraintTop_toTopOf="@+id/textView15" />
 

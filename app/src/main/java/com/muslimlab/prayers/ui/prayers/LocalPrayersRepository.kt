@@ -15,19 +15,6 @@ import java.util.*
 const val FILE_PRAYERS = "/prayers.json"
 val PRAYERS_API_READABLE_FORMAT = SimpleDateFormat("DD-MM-YYYY", Locale.ENGLISH)
 
-class LocalPrayersRepository : PrayersRepository {
-    override fun todayPrayers(
-        city: String,
-        country: String
-    ): Single<Prayers> = Single.just(null)
-
-    override fun fetchPrayers(city: String, country: String): Single<PrayerResult> = Observable.just(
-        Gson().fromJson(
-            javaClass.getResourceAsStream(FILE_PRAYERS)?.asString(), PrayerResult::class.java
-        )
-    ).singleOrError()
-}
-
 fun InputStream.asString(): String {
     val reader = BufferedReader(InputStreamReader(this))
     val sb = StringBuilder()
