@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
 
+        <receiver android:name=".ui.prayers.AlarmReceiver"/>
 
     </application>
 

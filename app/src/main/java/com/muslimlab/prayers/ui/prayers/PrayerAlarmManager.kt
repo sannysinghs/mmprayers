@@ -5,7 +5,10 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
+import android.os.SystemClock
 import androidx.core.app.AlarmManagerCompat
+import com.muslimlab.prayers.R
 import com.muslimlab.prayers.ui.prayers.model.PrayerItem
 import java.util.*
 
@@ -42,7 +45,8 @@ class PrayerAlarmManagerImpl(context: Context) : PrayerAlarmManager {
 
 class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        println("Alarm triggered!")
+        MediaPlayer.create(context, R.raw.adhan).apply {
+            start()
+        }
     }
-
 }
