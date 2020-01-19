@@ -21,6 +21,7 @@ class PrayersFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         viewModel = PrayersViewModel(
             PrayerRepositoryFactory
                 .createNetworkPrayerRepository(
