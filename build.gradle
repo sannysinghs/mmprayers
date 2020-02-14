@@ -29,4 +29,5 @@ task clean(type: Delete) {
 
 ext {
     androidx = '1.1.0'
+    retrofit = '2.6.2'
 }

@@ -1,8 +1,6 @@
 package com.muslimlab.prayers.ui.prayers
 
-import android.app.AlarmManager
 import android.content.SharedPreferences
-import androidx.core.app.AlarmManagerCompat
 import androidx.databinding.ObservableField
 import com.muslimlab.prayers.ui.prayers.model.PrayerItem
 import com.muslimlab.prayers.ui.prayers.model.PrayerName
@@ -73,7 +71,10 @@ class PrayersViewModel(
                             time = "${BURMESE_DAY_TIME.MORNING.value} ${fajir.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.fajr] ?: false,
                             timeInMills = fajir.toMillis()
-                        )
+                        ).apply {
+                            if (isAlarmOn)
+                                prayerAlarmManager.setAlarm(this)
+                        }
                     )
 
                     dhuhrPrayer.set(
@@ -82,7 +83,10 @@ class PrayersViewModel(
                             time = "${BURMESE_DAY_TIME.MORNING.value} ${dhuhr.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.duhur] ?: false,
                             timeInMills = dhuhr.toMillis()
-                        )
+                        ).apply {
+                            if (isAlarmOn)
+                                prayerAlarmManager.setAlarm(this)
+                        }
                     )
 
                     asrPrayer.set(
@@ -91,7 +95,10 @@ class PrayersViewModel(
                             time = "${BURMESE_DAY_TIME.EVENING.value} ${asr.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.asr] ?: false,
                             timeInMills = asr.toMillis()
-                        )
+                        ).apply {
+                            if (isAlarmOn)
+                                prayerAlarmManager.setAlarm(this)
+                        }
                     )
 
                     ishaPrayer.set(
@@ -100,7 +107,10 @@ class PrayersViewModel(
                             time = "${BURMESE_DAY_TIME.NIGHT.value} ${isha.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.isha] ?: false,
                             timeInMills = isha.toMillis()
-                        )
+                        ).apply {
+                            if (isAlarmOn)
+                                prayerAlarmManager.setAlarm(this)
+                        }
                     )
 
                     maghribPrayer.set(
@@ -109,7 +119,10 @@ class PrayersViewModel(
                             time = "${BURMESE_DAY_TIME.EVENING.value} ${maghrib.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.maghrib] ?: false,
                             timeInMills = maghrib.toMillis()
-                        )
+                        ).apply {
+                            if (isAlarmOn)
+                                prayerAlarmManager.setAlarm(this)
+                        }
                     )
                 }
 
