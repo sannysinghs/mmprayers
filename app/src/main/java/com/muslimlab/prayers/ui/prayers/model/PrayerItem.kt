@@ -1,7 +1,14 @@
 package com.muslimlab.prayers.ui.prayers.model
 
 data class PrayerItem(
-    val name: PrayerName, val time: String, val isAlarmOn: Boolean, val timeInMills: Long)
+    val name: PrayerName,
+    val time: String,
+    val isAlarmOn: Boolean,
+    val timeInMills: Long,
+    val isUpcoming: Boolean = false
+)
+
+data class PrayerTime(val name: PrayerName, val timeInMills: Long)
 
 enum class PrayerName {
     imsak,
