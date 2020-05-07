@@ -2,14 +2,15 @@ package com.muslimlab.prayers.ui.prayers
 
 import android.content.SharedPreferences
 import androidx.databinding.ObservableField
+import com.muslimlab.prayers.model.Prayers
 import com.muslimlab.prayers.ui.prayers.model.PrayerItem
 import com.muslimlab.prayers.ui.prayers.model.PrayerName
+import com.muslimlab.prayers.ui.prayers.model.PrayerTime
 import com.muslimlab.prayers.ui.utils.*
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,6 +25,7 @@ class PrayersViewModel(
     private val prayerDisposable: MutableList<Disposable> = ArrayList(5)
     val today = ObservableField<String>()
     val dayOfTheWeek = ObservableField<String>()
+    val upcomingPrayer = ObservableField<PrayerName>()
 
     val alarmPref: MutableMap<PrayerName, Boolean> = mutableMapOf()
 
@@ -55,13 +57,16 @@ class PrayersViewModel(
                 repository.todayPrayers()
             }
             .doOnNext {
+                upcomingPrayer.set(getCurrentPrayer(it.data.timings))
+
                 it.data.timings.run {
                     imsakPrayer.set(
                         PrayerItem(
                             name = PrayerName.imsak,
                             time = "${BURMESE_DAY_TIME.MORNING.value} ${imsak.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.imsak] ?: false,
-                            timeInMills = imsak.toMillis()
+                            timeInMills = imsak.toMillis(),
+                            isUpcoming = isUpcoming(PrayerName.imsak)
                         )
                     )
 
@@ -70,7 +75,8 @@ class PrayersViewModel(
                             name = PrayerName.fajr,
                             time = "${BURMESE_DAY_TIME.MORNING.value} ${fajir.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.fajr] ?: false,
-                            timeInMills = fajir.toMillis()
+                            timeInMills = fajir.toMillis(),
+                            isUpcoming = isUpcoming(PrayerName.fajr)
                         ).apply {
                             if (isAlarmOn)
                                 prayerAlarmManager.setAlarm(this)
@@ -82,7 +88,8 @@ class PrayersViewModel(
                             name = PrayerName.duhur,
                             time = "${BURMESE_DAY_TIME.MORNING.value} ${dhuhr.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.duhur] ?: false,
-                            timeInMills = dhuhr.toMillis()
+                            timeInMills = dhuhr.toMillis(),
+                            isUpcoming = isUpcoming(PrayerName.duhur)
                         ).apply {
                             if (isAlarmOn)
                                 prayerAlarmManager.setAlarm(this)
@@ -94,7 +101,8 @@ class PrayersViewModel(
                             name = PrayerName.asr,
                             time = "${BURMESE_DAY_TIME.EVENING.value} ${asr.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.asr] ?: false,
-                            timeInMills = asr.toMillis()
+                            timeInMills = asr.toMillis(),
+                            isUpcoming = isUpcoming(PrayerName.asr)
                         ).apply {
                             if (isAlarmOn)
                                 prayerAlarmManager.setAlarm(this)
@@ -106,7 +114,8 @@ class PrayersViewModel(
                             name = PrayerName.isha,
                             time = "${BURMESE_DAY_TIME.NIGHT.value} ${isha.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.isha] ?: false,
-                            timeInMills = isha.toMillis()
+                            timeInMills = isha.toMillis(),
+                            isUpcoming = isUpcoming(PrayerName.isha)
                         ).apply {
                             if (isAlarmOn)
                                 prayerAlarmManager.setAlarm(this)
@@ -118,7 +127,8 @@ class PrayersViewModel(
                             name = PrayerName.maghrib,
                             time = "${BURMESE_DAY_TIME.EVENING.value} ${maghrib.to12HourFormat().toBurmeseNumber()}",
                             isAlarmOn = alarmPref[PrayerName.maghrib] ?: false,
-                            timeInMills = maghrib.toMillis()
+                            timeInMills = maghrib.toMillis(),
+                            isUpcoming = isUpcoming(PrayerName.maghrib)
                         ).apply {
                             if (isAlarmOn)
                                 prayerAlarmManager.setAlarm(this)
@@ -135,6 +145,28 @@ class PrayersViewModel(
             .toDisposable()
     }
 
+    private fun isUpcoming(name: PrayerName) = upcomingPrayer.get() == name
+
+
+    private fun getCurrentPrayer(timings: Prayers): PrayerName {
+        return (listOf(
+            PrayerTime(PrayerName.imsak, timeInMills = timings.imsak.toMillis()),
+            PrayerTime(PrayerName.fajr, timeInMills = timings.fajir.toMillis()),
+            PrayerTime(PrayerName.duhur, timeInMills = timings.dhuhr.toMillis()),
+            PrayerTime(PrayerName.asr, timeInMills = timings.asr.toMillis()),
+            PrayerTime(PrayerName.maghrib, timeInMills = timings.maghrib.toMillis()),
+            PrayerTime(PrayerName.isha, timeInMills = timings.isha.toMillis())
+        ).firstOrNull {
+            val currentTime = FORMAT_PRAYER_TIME_24.format(Calendar.getInstance().time)
+            val prayerTime = FORMAT_PRAYER_TIME_24.format(Calendar.getInstance().apply {
+                timeInMillis = it.timeInMills
+            }.time)
+
+             prayerTime > currentTime
+        }?.name ?: PrayerName.fajr).also {
+            println("[PRAYER]: current: $it")
+        }
+    }
 
     fun Disposable.toDisposable(): Unit {
         prayerDisposable.add(this)
@@ -204,6 +236,7 @@ private fun String.toBurmeseNumber(): String {
     return builder.toString()
 }
 
+val FORMAT_PRAYER_TIME_24 = SimpleDateFormat("HH:mm", Locale.ENGLISH)
 val FORMAT_PRAYER_TIME_12 = SimpleDateFormat("hh:mm", Locale.ENGLISH)
 private fun String.to12HourFormat(): String {
     val cal = Calendar.getInstance().apply {
@@ -215,9 +248,9 @@ private fun String.to12HourFormat(): String {
 }
 
 
-private fun String.toMillis() : Long {
+private fun String.toMillis(): Long {
     val cal = Calendar.getInstance().apply {
-        set(Calendar.HOUR, split(":").first().toInt())
+        set(Calendar.HOUR_OF_DAY, split(":").first().toInt())
         set(Calendar.MINUTE, split(":").last().toInt())
     }
 
