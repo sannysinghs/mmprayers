@@ -12,7 +12,7 @@ data class PrayerTime(val name: PrayerName, val timeInMills: Long)
 
 enum class PrayerName {
     imsak,
-    fajr,
+    fajir,
     sunrise,
     duhur,
     asr,

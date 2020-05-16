@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <TextView
+        android:id="@+id/prayer_name_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAppearance="@style/PrayerTitleStyle"
+        app:layout_constraintEnd_toStartOf="@+id/prayer_alarm_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/magrib" />
+
+
+    <TextView
+        android:id="@+id/prayer_time_text"
+        style="@style/PrayerTimeTextStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/prayer_name_text"
+        app:layout_constraintStart_toStartOf="@+id/prayer_name_text"
+        app:layout_constraintTop_toBottomOf="@+id/prayer_name_text"
+        tools:text="@string/dummy_prayer_time" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/prayer_alarm_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/prayer_time_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/prayer_name_text"
+        app:srcCompat="@drawable/ic_alarm" />
+
+    <View
+        android:layout_marginTop="8dp"
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="@+id/prayer_alarm_icon"
+        app:layout_constraintStart_toStartOf="@+id/prayer_name_text"
+        app:layout_constraintTop_toBottomOf="@id/prayer_time_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

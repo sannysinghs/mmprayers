@@ -3,7 +3,6 @@ package com.muslimlab.prayers.ui.prayers
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.muslimlab.prayers.model.PrayerResult
 import com.muslimlab.prayers.ui.prayers.model.PrayerName
 import io.reactivex.Observable
@@ -19,7 +18,7 @@ class PrayersRepositoryImpl(
 ) : PrayersRepository {
     override fun getAlarmPref(): Single<Map<PrayerName, Boolean>> = Single.fromCallable {
         mapOf(
-            PrayerName.fajr to sharePref.getBoolean(PrayerName.fajr.name, false) ,
+            PrayerName.fajir to sharePref.getBoolean(PrayerName.fajir.name, false) ,
             PrayerName.asr to sharePref.getBoolean(PrayerName.asr.name, false),
             PrayerName.duhur to sharePref.getBoolean(PrayerName.duhur.name, false) ,
             PrayerName.maghrib to sharePref.getBoolean(PrayerName.maghrib.name, false) ,

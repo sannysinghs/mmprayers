@@ -22,7 +22,6 @@
         </activity>
 
         <receiver android:name=".ui.prayers.PrayerAlarmBroadcastReceiver"/>
-
     </application>
 
 </manifest>
